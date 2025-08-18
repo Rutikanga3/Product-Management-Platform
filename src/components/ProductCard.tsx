@@ -1,4 +1,4 @@
-import React from 'react';
+
 import type { Product } from '../types/product';
 
 interface ProductCardProps {
@@ -13,7 +13,7 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
       onClick={onClick}
     >
       {/* Product Image */}
-      <div className="h-48 overflow-hidden">
+      <div className="h-48 sm:h-56 md:h-60 overflow-hidden">
         <img
           src={product.thumbnail}
           alt={product.title}

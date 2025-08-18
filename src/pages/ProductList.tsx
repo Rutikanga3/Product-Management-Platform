@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchProducts, fetchCategories, fetchProductsByCategory, createProduct } from '../app/api';
 import type { Product } from '../types/product';
@@ -161,10 +161,10 @@ export default function ProductList() {
 
       const createResponse = await createProduct(productData);
       console.log('Created product:', createResponse.data);
-      
+
       // Show success message
       alert(`Product "${productData.title}" created successfully with ID: ${createResponse.data.id}! (Note: This is a mock API - the product won't persist on the server)`);
-      
+
       handleCancelAdd();
       // Refresh the product list without loading state
       const response = await fetchProducts();
@@ -188,9 +188,9 @@ export default function ProductList() {
 
 
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Products</h1>
-          <Button label="Add New Product" onClick={handleAddProduct} />
+          <Button label="Add New Product" onClick={handleAddProduct} className="w-full sm:w-auto bg-teal-400 text-white px-4 py-2 rounded-md hover:bg-teal-500 transition-colors duration-300" />
         </div>
 
         {/* Filters and Search */}
@@ -232,9 +232,9 @@ export default function ProductList() {
 
             {/* Results Count */}
             <div className="flex items-end">
-              <p className="text-gray-600">
+              {/* <p className="text-gray-600">
                 Showing {products.length} product{products.length !== 1 ? 's' : ''}
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
@@ -333,14 +333,14 @@ export default function ProductList() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {products.map((product) => (
-                             <ProductCard
-                 key={product.id}
-                 product={product}
-                 onClick={() => {
-                   console.log('Navigating to product:', product.id);
-                   navigate(`/products/${product.id}`);
-                 }}
-               />
+              <ProductCard
+                key={product.id}
+                product={product}
+                onClick={() => {
+                  console.log('Navigating to product:', product.id);
+                  navigate(`/products/${product.id}`);
+                }}
+              />
             ))}
           </div>
         )}

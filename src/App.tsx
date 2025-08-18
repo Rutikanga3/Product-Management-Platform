@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProductList from "./pages/ProductList";
 import ProductDetails from "./pages/ProductDetails";
 import Categories from "./pages/Categories";
+import Carts from "./pages/Carts";
+import CartDetails from "./pages/CartDetails";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
           <Route path="/products" element={<ProductList />} />
           <Route path="/products/:id" element={<ProductDetails />} />
           <Route path="/categories" element={<Categories />} />
+          <Route path="/carts" element={<Carts />} />
+          <Route path="/carts/:id" element={<CartDetails />} />
         </Routes>
       </div>
     </Router>

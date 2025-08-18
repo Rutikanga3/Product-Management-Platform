@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchProductById, updateProduct, deleteProduct } from '../app/api';
 import type { Product } from '../types/product';
@@ -32,11 +32,11 @@ export default function ProductDetails() {
         try {
             setLoading(true);
             setError(null); // Clear any previous errors
-            
+
             console.log('Fetching product with ID:', productId);
             const response = await fetchProductById(productId);
             console.log('Product response:', response);
-            
+
             setProduct(response.data);
             setEditForm(response.data);
         } catch (err) {
@@ -63,11 +63,11 @@ export default function ProductDetails() {
             setLoading(true);
             const updateResponse = await updateProduct(parseInt(id), editForm);
             console.log('Updated product:', updateResponse.data);
-            
+
             setProduct({ ...product, ...editForm });
             setIsEditing(false);
             setError(null);
-            
+
             // Show success message
             alert(`Product "${editForm.title || product.title}" updated successfully! (Note: This is a mock API - changes won't persist on the server)`);
         } catch (err) {
@@ -81,16 +81,16 @@ export default function ProductDetails() {
         if (!id) return;
 
         const confirmed = window.confirm('Are you sure you want to delete this product? This action cannot be undone.');
-        
+
         if (confirmed) {
             try {
                 setLoading(true);
                 setError(null); // Clear any previous errors
-                
+
                 console.log('Attempting to delete product with ID:', id);
                 const response = await deleteProduct(parseInt(id));
                 console.log('Delete response:', response);
-                
+
                 // Check if the API returned a successful response
                 if (response.data && response.data.isDeleted) {
                     alert(`Product "${product?.title}" has been deleted successfully! (Note: This is a mock API - the product still exists on the server)`);
@@ -121,31 +121,31 @@ export default function ProductDetails() {
 
             <div className="max-w-4xl mx-auto p-6">
 
-                
+
                 <div className="bg-white rounded-lg shadow-md p-6">
                     {/* Header */}
-                    <div className="flex justify-between items-center mb-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
                         <h1 className="text-3xl font-bold text-gray-900">
                             {isEditing ? 'Edit Product' : product.title}
                         </h1>
-                                                    <div className="flex gap-2">
-                                {!isEditing ? (
-                                    <>
-                                        <Button label="Edit" onClick={handleEdit} />
-                                        <button 
-                                            onClick={handleDelete}
-                                            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-300"
-                                        >
-                                            Delete
-                                        </button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Button label="Save" onClick={handleSave} />
-                                        <Button label="Cancel" onClick={handleCancel} />
-                                    </>
-                                )}
-                            </div>
+                        <div className="flex flex-wrap gap-2">
+                            {!isEditing ? (
+                                <>
+                                    <Button label="Edit" onClick={handleEdit} />
+                                    <button
+                                        onClick={handleDelete}
+                                        className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-300"
+                                    >
+                                        Delete
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    <Button label="Save" onClick={handleSave} />
+                                    <Button label="Cancel" onClick={handleCancel} />
+                                </>
+                            )}
+                        </div>
                     </div>
 
                     {/* Product Image */}
@@ -153,7 +153,7 @@ export default function ProductDetails() {
                         <img
                             src={product.thumbnail}
                             alt={product.title}
-                            className="w-full h-64 object-cover rounded-lg"
+                            className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-lg"
                         />
                     </div>
 

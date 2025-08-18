@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchCategories, fetchProductsByCategory } from '../app/api';
 import type { Product } from '../types/product';
@@ -60,15 +60,15 @@ export default function Categories() {
 
       <div className="max-w-7xl mx-auto p-6">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-8">
           <h1 className="text-3xl font-bold text-gray-900">
             {selectedCategory ? `${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)} Products` : 'Categories'}
           </h1>
           {selectedCategory && (
-            <Button 
-              label="Back to Categories" 
+            <Button
+              label="Back to Categories"
               onClick={handleBackToCategories}
-              className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors duration-300"
+              className="w-full sm:w-auto bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors duration-300"
             />
           )}
         </div>
@@ -99,7 +99,7 @@ export default function Categories() {
                 Showing {products.length} product{products.length !== 1 ? 's' : ''} in {selectedCategory}
               </p>
             </div>
-            
+
             {products.length === 0 ? (
               <div className="text-center py-12">
                 <p className="text-gray-500 text-lg">No products found in this category</p>
@@ -121,3 +121,4 @@ export default function Categories() {
     </div>
   );
 }
+
