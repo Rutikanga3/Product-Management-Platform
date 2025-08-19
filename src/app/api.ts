@@ -4,7 +4,7 @@ import type { CartsResponse, Cart, AddCartRequest, UpdateCartRequest } from '../
 
 const api = axios.create({
     baseURL: 'https://dummyjson.com',
-    timeout: 10000, // 10 second timeout
+    timeout: 10000, 
     headers: {
         'Content-Type': 'application/json',
     }

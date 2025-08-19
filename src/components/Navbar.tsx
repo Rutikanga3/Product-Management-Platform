@@ -8,7 +8,7 @@ export default function Navbar() {
 
   return (
     <div>
-      <nav className="bg-white shadow p-5">
+      <nav className="bg-white shadow p-5  ">
         <div className="flex items-center justify-between">
           <h2
             className="text-teal-400 font-medium text-xl cursor-pointer"
@@ -25,7 +25,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        <div className={`${open ? 'flex' : 'hidden'} sm:flex flex-col sm:flex-row gap-3 sm:gap-5 mt-4 sm:mt-4`}>
+        <div className={`${open ? 'flex' : 'hidden'}  sm:flex flex-col sm:flex-row gap-3 sm:gap-5 mt-4 sm:mt-4`}>
           <Button
             label="Products"
             onClick={() => { setOpen(false); navigate('/products'); }}

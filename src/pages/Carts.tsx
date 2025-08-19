@@ -49,7 +49,7 @@ export default function Carts() {
                 ],
             });
             await loadCarts();
-            alert('Cart added (mock API).');
+            alert('Cart added.');
         } catch (err: any) {
             setError(err.message || 'Failed to add cart');
         } finally {

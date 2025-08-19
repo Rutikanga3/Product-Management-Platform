@@ -17,7 +17,6 @@ export default function ProductDetails() {
     const [isEditing, setIsEditing] = useState(false);
     const [editForm, setEditForm] = useState<Partial<Product>>({});
 
-    // Fetch product data when component mounts
     useEffect(() => {
         console.log('ProductDetails mounted with ID:', id);
         if (id) {
@@ -31,7 +30,7 @@ export default function ProductDetails() {
     const fetchProductData = async (productId: number) => {
         try {
             setLoading(true);
-            setError(null); // Clear any previous errors
+            setError(null); 
 
             console.log('Fetching product with ID:', productId);
             const response = await fetchProductById(productId);
@@ -68,7 +67,7 @@ export default function ProductDetails() {
             setIsEditing(false);
             setError(null);
 
-            // Show success message
+            
             alert(`Product "${editForm.title || product.title}" updated successfully! (Note: This is a mock API - changes won't persist on the server)`);
         } catch (err) {
             setError('Failed to update product');
@@ -85,13 +84,13 @@ export default function ProductDetails() {
         if (confirmed) {
             try {
                 setLoading(true);
-                setError(null); // Clear any previous errors
+                setError(null); 
 
                 console.log('Attempting to delete product with ID:', id);
                 const response = await deleteProduct(parseInt(id));
                 console.log('Delete response:', response);
 
-                // Check if the API returned a successful response
+                
                 if (response.data && response.data.isDeleted) {
                     alert(`Product "${product?.title}" has been deleted successfully! (Note: This is a mock API - the product still exists on the server)`);
                     navigate('/products');
@@ -123,7 +122,7 @@ export default function ProductDetails() {
 
 
                 <div className="bg-white rounded-lg shadow-md p-6">
-                    {/* Header */}
+                    
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
                         <h1 className="text-3xl font-bold text-gray-900">
                             {isEditing ? 'Edit Product' : product.title}
@@ -148,18 +147,32 @@ export default function ProductDetails() {
                         </div>
                     </div>
 
-                    {/* Product Image */}
+                    
                     <div className="mb-6">
                         <img
                             src={product.thumbnail}
                             alt={product.title}
-                            className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-lg"
+                            className="w-100 justify-center h-64 sm:h-80 md:h-96 object-cover rounded-lg"
                         />
                     </div>
+                    {/* <div>
+                        <img src={product.images[0]} alt={product.title}  className='h-40 w-auto rounded border border-teal-400 '/>
+                    </div> */}
+                    <div className='flex gap-6 justify-center'>
+                        {product.images.map((image:string, index:number) => (
+                            <img
+                                key={index}
+                                src={image}
+                                alt={`${product.title} image ${index + 1}`}
+                                className="h-40 w-auto rounded border border-teal-400 mb-2"
+                            />
 
-                    {/* Product Details */}
+                        ))}
+                    </div>
+
+                    
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Basic Information */}
+                       
                         <div className="space-y-4">
                             <h2 className="text-xl font-semibold text-gray-800">Basic Information</h2>
 
@@ -225,16 +238,16 @@ export default function ProductDetails() {
                             <h2 className="text-xl font-semibold text-gray-800">Pricing & Stock</h2>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">Price</label>
+                                <label className="block text-sm font-medium text-gray-700 ">Price</label>
                                 {isEditing ? (
                                     <input
                                         type="number"
                                         value={editForm.price || ''}
                                         onChange={(e) => handleInputChange('price', parseFloat(e.target.value))}
-                                        className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
+                                        className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 "
                                     />
                                 ) : (
-                                    <p className="mt-1 text-gray-900">${product.price}</p>
+                                    <p className="mt-1 text-gray-900 bg-teal-100 w-15 rounded-md p-1">${product.price}</p>
                                 )}
                             </div>
 
@@ -248,7 +261,7 @@ export default function ProductDetails() {
                                         className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2"
                                     />
                                 ) : (
-                                    <p className="mt-1 text-gray-900">{product.discountPercentage}%</p>
+                                    <p className="mt-1 text-white bg-red-400 w-15 rounded-md p-1">{product.discountPercentage}%</p>
                                 )}
                             </div>
 
@@ -285,9 +298,25 @@ export default function ProductDetails() {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">Weight</label>
-                                <p className="mt-1 text-gray-900">{product.weight}g</p>
+                                <p className="mt-1 text-gray-900 bg-yellow-200 w-15 rounded-md p-1">{product.weight}g</p>
                             </div>
 
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Warranty</label>
+                                <p className="mt-1 text-gray-900">{product.warrantyInformation}</p>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Shipping Information</label>
+                                <p className="mt-1 text-gray-900">{product.shippingInformation}</p>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Return Policy</label>
+                                <p className="mt-1 text-gray-900">{product.returnPolicy}</p>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Minimum Order Quantity</label>
+                                <p className="mt-1 text-gray-900 bg-green-300 w-15 rounded-md p-1">{product.minimumOrderQuantity}</p>
+                            </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">Availability</label>
                                 <p className="mt-1 text-gray-900">{product.availabilityStatus}</p>

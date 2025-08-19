@@ -59,7 +59,7 @@ export default function Categories() {
       <Navbar />
 
       <div className="max-w-7xl mx-auto p-6">
-        {/* Header */}
+        
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-8">
           <h1 className="text-3xl font-bold text-gray-900">
             {selectedCategory ? `${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)} Products` : 'Categories'}
@@ -68,13 +68,13 @@ export default function Categories() {
             <Button
               label="Back to Categories"
               onClick={handleBackToCategories}
-              className="w-full sm:w-auto bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors duration-300"
+              className="w-full sm:w-auto bg-teal-400 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors duration-300"
             />
           )}
         </div>
 
         {!selectedCategory ? (
-          // Categories Grid
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {categories.map((category, index) => (
               <div
@@ -92,12 +92,12 @@ export default function Categories() {
             ))}
           </div>
         ) : (
-          // Products Grid for selected category
+          
           <div>
             <div className="mb-6">
-              <p className="text-gray-600">
+              {/* <p className="text-gray-600">
                 Showing {products.length} product{products.length !== 1 ? 's' : ''} in {selectedCategory}
-              </p>
+              </p> */}
             </div>
 
             {products.length === 0 ? (

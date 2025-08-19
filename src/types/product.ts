@@ -46,7 +46,6 @@ export interface Product {
     images: string[];
 }
 
-// Separate interface for API responses that contain multiple products
 export interface ProductsResponse {
     products: Product[];
     total: number;
