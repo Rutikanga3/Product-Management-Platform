@@ -6,6 +6,7 @@ import ErrorMessage from '../components/ErrorMessage';
 import Button from '../components/Button';
 import { fetchCarts, addCart } from '../app/api';
 import type { Cart } from '../types/cart';
+import type { User } from '../types/user';
 
 export default function Carts() {
     const navigate = useNavigate();
@@ -13,7 +14,8 @@ export default function Carts() {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
-    const [userId, setUserId] = useState<number>(1);
+    const loggedInUser: User = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
+    const [userId, setUserId] = useState<number>(loggedInUser.id || 1);
     const [productId, setProductId] = useState<number>(144);
     const [quantity, setQuantity] = useState<number>(1);
 

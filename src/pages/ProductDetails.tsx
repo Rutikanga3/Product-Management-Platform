@@ -16,6 +16,12 @@ export default function ProductDetails() {
     const [error, setError] = useState<string | null>(null);
     const [isEditing, setIsEditing] = useState(false);
     const [editForm, setEditForm] = useState<Partial<Product>>({});
+    const [selectedImage, setSelectedImage] = useState<string | null>(product?.thumbnail || product?.images[0] ||'');
+    // console.log(selectedImage)
+
+     const handleSelect= (image:string)=>{
+        setSelectedImage(image);
+     };
 
     useEffect(() => {
         console.log('ProductDetails mounted with ID:', id);
@@ -106,6 +112,8 @@ export default function ProductDetails() {
         }
     };
 
+   
+
     const handleInputChange = (field: keyof Product, value: any) => {
         setEditForm(prev => ({ ...prev, [field]: value }));
     };
@@ -150,14 +158,12 @@ export default function ProductDetails() {
                     
                     <div className="mb-6">
                         <img
-                            src={product.thumbnail}
+                            src={selectedImage || undefined || product.thumbnail}
                             alt={product.title}
                             className="w-100 justify-center h-64 sm:h-80 md:h-96 object-cover rounded-lg"
                         />
                     </div>
-                    {/* <div>
-                        <img src={product.images[0]} alt={product.title}  className='h-40 w-auto rounded border border-teal-400 '/>
-                    </div> */}
+                   
                     <div className='flex gap-6 justify-center'>
                         {product.images.map((image:string, index:number) => (
                             <img
@@ -165,6 +171,7 @@ export default function ProductDetails() {
                                 src={image}
                                 alt={`${product.title} image ${index + 1}`}
                                 className="h-40 w-auto rounded border border-teal-400 mb-2"
+                                onClick={()=>handleSelect(image)}
                             />
 
                         ))}

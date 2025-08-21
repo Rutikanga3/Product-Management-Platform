@@ -1,10 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import Button from "./Button"
 import { useState } from 'react';
+import { FaUserCircle } from "react-icons/fa";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [dropdownOpen,setDropdownOpen]= useState(false);
+
+  const handleLogout = () => {
+    
+    localStorage.removeItem('loggedInUser');
+    navigate('/'); 
+  };
 
   return (
     <div>
@@ -23,6 +31,23 @@ export default function Navbar() {
           >
             Menu
           </button>
+          {/* User Icon */}
+            <div className="relative">
+              <FaUserCircle
+                className="text-teal-400 text-2xl cursor-pointer"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              />
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
         </div>
 
         <div className={`${open ? 'flex' : 'hidden'}  sm:flex flex-col sm:flex-row gap-3 sm:gap-5 mt-4 sm:mt-4`}>

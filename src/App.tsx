@@ -4,13 +4,15 @@ import ProductDetails from "./pages/ProductDetails";
 import Categories from "./pages/Categories";
 import Carts from "./pages/Carts";
 import CartDetails from "./pages/CartDetails";
+import Login from './pages/Login';
 
 function App() {
   return (
     <Router>
       <div>
         <Routes>
-          <Route path="/" element={<ProductList />} />
+          <Route path='/' element={<Login/>}/>
+          <Route path="/home" element={<ProductList />} />
           <Route path="/products" element={<ProductList />} />
           <Route path="/products/:id" element={<ProductDetails />} />
           <Route path="/categories" element={<Categories />} />
